@@ -4,32 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Use — Riffle</title>
+  <link rel="stylesheet" href="global.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a1a13;
-      color: #c8ddd4;
-      line-height: 1.7;
-    }
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 60px;
-      background: rgba(10,26,19,0.95);
-      border-bottom: 0.5px solid rgba(255,255,255,0.08);
-      position: sticky; top: 0; z-index: 100;
-    }
-    .nav-logo {
-      font-size: 20px; font-weight: 500;
-      letter-spacing: -0.02em; color: #d4f0e2;
-      text-decoration: none;
-    }
-    .nav-logo span { color: #1E8C7A; }
-    .nav-back {
-      font-size: 14px; color: rgba(255,255,255,0.45);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .nav-back:hover { color: #d4f0e2; }
+    body { color: #c8ddd4; line-height: 1.7; }
 
     .container {
       max-width: 720px;
@@ -80,15 +57,6 @@
       margin: 0; font-size: 14px;
       color: rgba(200,221,212,0.9);
     }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 0.5px solid rgba(255,255,255,0.07);
-      font-size: 13px;
-      color: rgba(255,255,255,0.25);
-    }
-    footer a { color: rgba(255,255,255,0.35); margin: 0 0.75rem; }
-    footer a:hover { color: rgba(255,255,255,0.65); text-decoration: none; }
   </style>
 </head>
 <body>
@@ -175,12 +143,15 @@
 </div>
 
 <footer>
-  <div style="margin-bottom: 0.75rem;">
+  <div style="display:flex; align-items:center; gap:0.75rem;">
+    <div class="footer-logo">Riffle</div>
+    <div class="footer-copy">© 2026 Riffle Labs LLC. All rights reserved.</div>
+  </div>
+  <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Use</a>
   </div>
-  © 2026 Riffle Labs LLC. All rights reserved.
 </footer>
 
 </body>

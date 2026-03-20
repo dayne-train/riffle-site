@@ -4,29 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riffle — Track every riffle, run, and pool.</title>
+  <link rel="stylesheet" href="global.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a1a13; color: #f0ede8; }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 60px;
-      background: rgba(10, 26, 19, 0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 0.5px solid rgba(255,255,255,0.08);
-    }
-    .nav-logo { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: #d4f0e2; text-decoration: none; }
-    .nav-logo span { color: #1E8C7A; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { font-size: 14px; color: rgba(240,237,232,0.65); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: #d4f0e2; }
-    .nav-cta {
-      background: #1E8C7A; color: #fff; border: none;
-      padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;
-      cursor: pointer; text-decoration: none; transition: background 0.2s;
-    }
-    .nav-cta:hover { background: #17705f; }
+    body { color: #f0ede8; }
 
     .hero {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -155,12 +135,6 @@
     .cta-section h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 500; letter-spacing: -0.03em; color: #e8f5ef; margin-bottom: 1rem; position: relative; }
     .cta-section p { font-size: 1.05rem; color: rgba(232,245,239,0.55); margin-bottom: 2.5rem; position: relative; }
 
-    footer { padding: 2rem; border-top: 0.5px solid rgba(255,255,255,0.07); display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
-    .footer-logo { font-size: 16px; font-weight: 500; color: rgba(212,240,226,0.6); }
-    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: rgba(255,255,255,0.65); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
   </style>
 </head>
 <body>
