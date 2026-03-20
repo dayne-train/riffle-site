@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riffle — Track every riffle, run, and pool.</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a1a13; color: #f0ede8; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 60px;
+      background: rgba(10, 26, 19, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: #d4f0e2; text-decoration: none; }
+    .nav-logo span { color: #1E8C7A; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 14px; color: rgba(240,237,232,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: #d4f0e2; }
+    .nav-cta {
+      background: #1E8C7A; color: #fff; border: none;
+      padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #17705f; }
+
+    .hero {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem 0;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 80%, rgba(30,140,122,0.18) 0%, transparent 65%),
+                  linear-gradient(180deg, #0a1a13 0%, #0d2119 50%, #0a1a13 100%);
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(30,140,122,0.15); border: 0.5px solid rgba(30,140,122,0.4);
+      color: #5dd4b8; font-size: 12px; padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 1.5rem; letter-spacing: 0.04em;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #1E8C7A; }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 500; letter-spacing: -0.03em; line-height: 1.05;
+      color: #e8f5ef; max-width: 820px; margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: normal; color: #1E8C7A; }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(232,245,239,0.6); max-width: 500px;
+      line-height: 1.65; margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+
+    .btn-primary {
+      display: flex; align-items: center; gap: 10px;
+      background: #f0ede8; color: #0a1a13;
+      padding: 14px 24px; border-radius: 12px;
+      font-size: 16px; font-weight: 500; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #fff; transform: translateY(-1px); }
+
+    .btn-secondary {
+      color: rgba(232,245,239,0.7); font-size: 15px; text-decoration: none;
+      padding: 14px 20px; border-radius: 12px;
+      border: 0.5px solid rgba(255,255,255,0.12);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { color: #e8f5ef; border-color: rgba(255,255,255,0.25); }
+
+    .app-mockup {
+      margin-top: 4rem;
+      width: min(360px, 85vw);
+      background: #0f2920;
+      border-radius: 28px 28px 0 0;
+      border: 0.5px solid rgba(30,140,122,0.3);
+      border-bottom: none;
+      padding: 1.5rem 1.5rem 0;
+      text-align: left;
+      position: relative;
+    }
+    .mockup-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .mockup-title { font-size: 18px; font-weight: 500; color: #d4f0e2; }
+    .mockup-badge { background: rgba(30,140,122,0.25); color: #5dd4b8; font-size: 11px; padding: 3px 10px; border-radius: 10px; }
+    .trip-stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+    .trip-stat { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 10px 12px; border: 0.5px solid rgba(255,255,255,0.07); }
+    .trip-stat-label { font-size: 10px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .trip-stat-val { font-size: 17px; font-weight: 500; color: #d4f0e2; }
+    .trip-stat-unit { font-size: 10px; color: rgba(255,255,255,0.4); }
+
+    .map-placeholder {
+      background: linear-gradient(160deg, #0d2a1e 0%, #0a1f17 100%);
+      border-radius: 14px; height: 140px;
+      border: 0.5px solid rgba(30,140,122,0.2);
+      position: relative; overflow: hidden; margin-bottom: 1rem;
+    }
+
+    .catch-row {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.03); border-radius: 10px;
+      padding: 10px 12px; border: 0.5px solid rgba(255,255,255,0.06);
+      margin-bottom: 8px;
+    }
+    .catch-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(30,140,122,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .catch-species { font-size: 14px; font-weight: 500; color: #d4f0e2; }
+    .catch-detail { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+    .catch-size { margin-left: auto; font-size: 13px; color: #5dd4b8; }
+
+    .features-section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-label { font-size: 12px; letter-spacing: 0.1em; color: #1E8C7A; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .section-heading { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.15; color: #e8f5ef; max-width: 620px; margin-bottom: 1rem; }
+    .section-sub { font-size: 1.05rem; color: rgba(232,245,239,0.55); max-width: 480px; line-height: 1.7; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px; background: rgba(255,255,255,0.06);
+      border-radius: 16px; overflow: hidden; margin-top: 3rem;
+      border: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .feature-card { background: #0d2119; padding: 2rem; }
+    .feature-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(30,140,122,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-title { font-size: 16px; font-weight: 500; color: #d4f0e2; margin-bottom: 0.5rem; }
+    .feature-body { font-size: 14px; color: rgba(232,245,239,0.5); line-height: 1.6; }
+
+    .how-it-works { background: #0d2119; border-top: 0.5px solid rgba(255,255,255,0.06); border-bottom: 0.5px solid rgba(255,255,255,0.06); text-align: center; padding: 5rem 2rem; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .step-num { font-size: 12px; font-weight: 500; color: #1E8C7A; margin-bottom: 0.75rem; }
+    .step-title { font-size: 16px; font-weight: 500; color: #d4f0e2; margin-bottom: 0.5rem; }
+    .step-body { font-size: 14px; color: rgba(232,245,239,0.5); line-height: 1.6; }
+
+    .testimonials { padding: 5rem 2rem; text-align: center; max-width: 1000px; margin: 0 auto; }
+    .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 3rem; }
+    .quote-card { background: #0d2119; border: 0.5px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.5rem; text-align: left; }
+    .quote-text { font-size: 15px; color: rgba(232,245,239,0.75); line-height: 1.65; margin-bottom: 1rem; }
+    .quote-author { font-size: 13px; color: #5dd4b8; }
+    .quote-role { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .stars { color: #E8A838; font-size: 12px; margin-bottom: 0.75rem; letter-spacing: 2px; }
+
+    .cta-section { text-align: center; background: linear-gradient(180deg, #0a1a13 0%, #0d2d1f 50%, #0a1a13 100%); padding: 6rem 2rem; position: relative; overflow: hidden; }
+    .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(30,140,122,0.12) 0%, transparent 70%); pointer-events: none; }
+    .cta-section h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 500; letter-spacing: -0.03em; color: #e8f5ef; margin-bottom: 1rem; position: relative; }
+    .cta-section p { font-size: 1.05rem; color: rgba(232,245,239,0.55); margin-bottom: 2.5rem; position: relative; }
+
+    footer { padding: 2rem; border-top: 0.5px solid rgba(255,255,255,0.07); display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+    .footer-logo { font-size: 16px; font-weight: 500; color: rgba(212,240,226,0.6); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.65); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ri<span>ff</span>le</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#app-store" class="nav-cta">Download</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Now available on iOS
+  </div>
+  <h1>Track every <em>riffle,</em><br>run, and pool.</h1>
+  <p class="hero-sub">Riffle automatically records your fishing trips with GPS — so you can put your phone away and focus on the water.</p>
+  <div class="hero-actions">
+    <a href="#app-store" class="btn-primary" id="app-store">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M14.5 10.5C14.5 8.84 15.36 7.38 16.66 6.56C15.84 5.43 14.54 4.72 13.07 4.72C11.68 4.72 10.97 5.5 9.98 5.5C8.97 5.5 8.09 4.72 6.9 4.72C4.74 4.72 3 6.62 3 9.12C3 12.59 5.55 16.5 7.72 16.5C8.64 16.5 9.37 15.8 10.5 15.8C11.61 15.8 12.19 16.5 13.26 16.5C15.2 16.5 16.88 13.47 17.5 11.58C16.09 11.02 14.5 9.96 14.5 8.5V10.5Z" fill="#0a1a13"/>
+        <path d="M12 3C12.41 2.44 12.67 1.72 12.56 1C11.9 1.05 11.14 1.44 10.69 2.01C10.3 2.52 10 3.24 10.13 3.95C10.87 3.97 11.59 3.56 12 3Z" fill="#0a1a13"/>
+      </svg>
+      Download on App Store
+    </a>
+    <a href="#how" class="btn-secondary">See how it works</a>
+  </div>
+
+  <div class="app-mockup">
+    <div class="mockup-header">
+      <div class="mockup-title">Today's trip</div>
+      <div class="mockup-badge">Active</div>
+    </div>
+    <div class="trip-stat-row">
+      <div class="trip-stat">
+        <div class="trip-stat-label">Time</div>
+        <div class="trip-stat-val">3<span class="trip-stat-unit">h 22m</span></div>
+      </div>
+      <div class="trip-stat">
+        <div class="trip-stat-label">Distance</div>
+        <div class="trip-stat-val">2.4<span class="trip-stat-unit">mi</span></div>
+      </div>
+      <div class="trip-stat">
+        <div class="trip-stat-label">Catches</div>
+        <div class="trip-stat-val">4</div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <svg width="100%" height="100%" viewBox="0 0 340 140" style="position:absolute;top:0;left:0;">
+        <defs>
+          <radialGradient id="mg" cx="50%" cy="60%" r="60%">
+            <stop offset="0%" stop-color="#1E8C7A" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#0a1a13" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="340" height="140" fill="url(#mg)"/>
+        <path d="M30,100 Q80,70 120,80 Q160,90 190,60 Q220,30 270,45 Q300,55 320,40" stroke="#1E8C7A" stroke-width="2" fill="none" stroke-opacity="0.7"/>
+        <circle cx="120" cy="80" r="5" fill="#E8A838" opacity="0.9"/>
+        <circle cx="190" cy="60" r="5" fill="#E8A838" opacity="0.9"/>
+        <circle cx="240" cy="38" r="5" fill="#E8A838" opacity="0.9"/>
+        <circle cx="295" cy="50" r="5" fill="#E8A838" opacity="0.9"/>
+        <circle cx="320" cy="40" r="7" fill="#1E8C7A"/>
+        <circle cx="320" cy="40" r="12" fill="#1E8C7A" opacity="0.2"/>
+      </svg>
+    </div>
+    <div class="catch-row">
+      <div class="catch-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <ellipse cx="9" cy="9" rx="7" ry="4" stroke="#1E8C7A" stroke-width="1.2" fill="none"/>
+          <path d="M2 9 L0 6 M2 9 L0 12" stroke="#1E8C7A" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="13" cy="8" r="1" fill="#1E8C7A"/>
+        </svg>
+      </div>
+      <div>
+        <div class="catch-species">Brown Trout</div>
+        <div class="catch-detail">Size 14 Elk Hair Caddis · Released</div>
+      </div>
+      <div class="catch-size">18"</div>
+    </div>
+    <div class="catch-row">
+      <div class="catch-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <ellipse cx="9" cy="9" rx="7" ry="4" stroke="#1E8C7A" stroke-width="1.2" fill="none"/>
+          <path d="M2 9 L0 6 M2 9 L0 12" stroke="#1E8C7A" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="13" cy="8" r="1" fill="#1E8C7A"/>
+        </svg>
+      </div>
+      <div>
+        <div class="catch-species">Rainbow Trout</div>
+        <div class="catch-detail">Pheasant Tail Nymph #16 · Released</div>
+      </div>
+      <div class="catch-size">14"</div>
+    </div>
+  </div>
+</section>
+
+<section id="features" style="background:#0a1a13;">
+  <div class="features-section">
+    <div class="section-label">Built for the water</div>
+    <h2 class="section-heading">Everything you need. Nothing you don't.</h2>
+    <p class="section-sub">Riffle strips away the noise so logging a catch feels faster than not logging it.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#1E8C7A" stroke-width="1.5" fill="none"/>
+            <circle cx="10" cy="10" r="2" fill="#1E8C7A"/>
+            <path d="M10 3V5 M10 15V17 M3 10H5 M15 10H17" stroke="#1E8C7A" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-title">Auto GPS tracking</div>
+        <div class="feature-body">Start a trip and put your phone away. Riffle records your route in the background while you fish — all day, on one charge.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="5" width="14" height="10" rx="2" stroke="#1E8C7A" stroke-width="1.5" fill="none"/>
+            <circle cx="10" cy="10" r="2.5" stroke="#1E8C7A" stroke-width="1.2" fill="none"/>
+            <circle cx="15" cy="6" r="1" fill="#1E8C7A"/>
+          </svg>
+        </div>
+        <div class="feature-title">Quick catch logging</div>
+        <div class="feature-body">Species, size, lure, depth — logged in seconds. Photo attaches with a tap. One-handed operation designed for cold, wet hands.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 14 Q6 8 10 10 Q14 12 17 6" stroke="#1E8C7A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="6" cy="11" r="1.5" fill="#E8A838"/>
+            <circle cx="10" cy="10" r="1.5" fill="#E8A838"/>
+            <circle cx="14.5" cy="8" r="1.5" fill="#E8A838"/>
+          </svg>
+        </div>
+        <div class="feature-title">Pattern recognition</div>
+        <div class="feature-body">Over time, Riffle surfaces what's actually working — which lures, which pools, which conditions produce fish for you specifically.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2 L12.5 7.5 L18 8 L14 12 L15 17.5 L10 15 L5 17.5 L6 12 L2 8 L7.5 7.5 Z" stroke="#1E8C7A" stroke-width="1.3" fill="none" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feature-title">Offline-first</div>
+        <div class="feature-body">No signal? No problem. Riffle works completely offline and syncs when you're back in range. Built for remote rivers and mountain streams.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="4" y="3" width="9" height="12" rx="1.5" stroke="#1E8C7A" stroke-width="1.5" fill="none"/>
+            <path d="M7 7H10 M7 9.5H10 M7 12H9" stroke="#1E8C7A" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feature-title">Full trip history</div>
+        <div class="feature-body">Every route, every catch, every photo — stored forever. Search by species, location, or date. Your log book, supercharged.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 3C7.2 3 5 5.2 5 8C5 11.5 10 17 10 17C10 17 15 11.5 15 8C15 5.2 12.8 3 10 3Z" stroke="#1E8C7A" stroke-width="1.5" fill="none"/>
+            <circle cx="10" cy="8" r="2" fill="#1E8C7A"/>
+          </svg>
+        </div>
+        <div class="feature-title">Map every spot</div>
+        <div class="feature-body">See every catch pinned to the exact pool or riffle where it happened. Finally answer "where exactly was that spot?" with certainty.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="how-it-works">
+  <div class="section-label" style="text-align:center;">How it works</div>
+  <h2 class="section-heading" style="text-align:center; margin: 0 auto 0.5rem;">Three taps. Then fish.</h2>
+  <p class="section-sub" style="text-align:center; margin: 0 auto;">No setup. No forms. No friction between you and the water.</p>
+  <div class="steps">
+    <div>
+      <div class="step-num">01</div>
+      <div class="step-title">Start your trip</div>
+      <div class="step-body">Tap once. Riffle begins tracking your GPS route in the background. Lock your phone and get fishing.</div>
+    </div>
+    <div>
+      <div class="step-num">02</div>
+      <div class="step-title">Log catches as they happen</div>
+      <div class="step-body">Species, size, lure — log it in seconds with one hand. Snap a photo or don't. Either way it's captured.</div>
+    </div>
+    <div>
+      <div class="step-num">03</div>
+      <div class="step-title">Review at the truck</div>
+      <div class="step-body">End the trip. See your full route, every catch mapped to where it happened, and your photos in order.</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label">From anglers</div>
+  <h2 class="section-heading" style="margin: 0 auto 0.5rem;">Built by a fisherman.</h2>
+  <div class="quote-grid">
+    <div class="quote-card">
+      <div class="stars">★★★★★</div>
+      <div class="quote-text">"Finally remembered which pool I hit those browns on last October. The GPS route made it obvious."</div>
+      <div class="quote-author">@highcountry_wade</div>
+      <div class="quote-role">Fly fisherman, Colorado</div>
+    </div>
+    <div class="quote-card">
+      <div class="stars">★★★★★</div>
+      <div class="quote-text">"I've tried three other fishing apps. Riffle is the only one I actually open streamside."</div>
+      <div class="quote-author">@greendrake_guy</div>
+      <div class="quote-role">Montana guide, 14 years</div>
+    </div>
+    <div class="quote-card">
+      <div class="stars">★★★★★</div>
+      <div class="quote-text">"The offline mode is huge. I fish remote stretches where I haven't had signal in years."</div>
+      <div class="quote-author">@brookiehunter</div>
+      <div class="quote-role">Vermont backcountry angler</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="section-label" style="position:relative;">Free to start</div>
+  <h2>Remember what worked.<br>Go back to what worked.</h2>
+  <p style="position:relative;">Download Riffle free. Your first months of data will change how you fish.</p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative;">
+    <a href="#app-store" class="btn-primary">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M14.5 10.5C14.5 8.84 15.36 7.38 16.66 6.56C15.84 5.43 14.54 4.72 13.07 4.72C11.68 4.72 10.97 5.5 9.98 5.5C8.97 5.5 8.09 4.72 6.9 4.72C4.74 4.72 3 6.62 3 9.12C3 12.59 5.55 16.5 7.72 16.5C8.64 16.5 9.37 15.8 10.5 15.8C11.61 15.8 12.19 16.5 13.26 16.5C15.2 16.5 16.88 13.47 17.5 11.58C16.09 11.02 14.5 9.96 14.5 8.5V10.5Z" fill="#0a1a13"/>
+        <path d="M12 3C12.41 2.44 12.67 1.72 12.56 1C11.9 1.05 11.14 1.44 10.69 2.01C10.3 2.52 10 3.24 10.13 3.95C10.87 3.97 11.59 3.56 12 3Z" fill="#0a1a13"/>
+      </svg>
+      Download on the App Store
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Riffle</div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="mailto:hello@riffle.run">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 Riffle Labs LLC. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
