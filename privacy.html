@@ -158,5 +158,10 @@
   <div class="footer-copy">© 2026 Riffle Labs LLC. All rights reserved.</div>
 </footer>
 
+<script>
+  const nav = document.querySelector('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
 </body>
 </html>

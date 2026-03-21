@@ -13,9 +13,15 @@ nav {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 2rem; height: 60px;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 0.5px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+nav.scrolled {
   background: rgba(10, 26, 19, 0.85);
   backdrop-filter: blur(8px);
-  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  border-bottom-color: rgba(255,255,255,0.08);
 }
 .nav-logo { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: #d4f0e2; text-decoration: none; }
 .nav-logo span { color: #1E8C7A; }
@@ -23,11 +29,11 @@ nav {
 .nav-links a { font-size: 14px; color: rgba(240,237,232,0.65); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: #d4f0e2; }
 .nav-cta {
-  background: #1E8C7A; color: #fff; border: none;
+  background: #F0A030; color: #fff; border: none;
   padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;
   cursor: pointer; text-decoration: none; transition: background 0.2s;
 }
-.nav-cta:hover { background: #17705f; }
+.nav-cta:hover { background: #D98E28; }
 .nav-back { font-size: 14px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
 .nav-back:hover { color: #d4f0e2; }
 
