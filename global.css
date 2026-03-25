@@ -29,7 +29,7 @@ nav.scrolled {
 .nav-links a { font-size: 14px; color: rgba(240,237,232,0.65); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: #d4f0e2; }
 .nav-cta {
-  background: #F0A030; color: #fff; border: none;
+  background: #F0A030; color: #1a0e00; border: none;
   padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;
   cursor: pointer; text-decoration: none; transition: background 0.2s;
 }
