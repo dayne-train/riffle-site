@@ -10,8 +10,8 @@ html { scroll-behavior: smooth; }
   --color-bg-surface:   #0f2920;
   --color-teal:         #1E8C7A;
   --color-teal-dim:     rgba(30,140,122,0.2);
-  --color-amber:        #C47F10;
-  --color-amber-hover:  #A86C0D;
+  --color-amber:        #D4920F;
+  --color-amber-hover:  #B87C0C;
   --color-text:         #e8f5ef;
   --color-text-soft:    #d4f0e2;
   --color-text-muted:   rgba(232,245,239,0.55);
