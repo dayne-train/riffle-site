@@ -59,7 +59,7 @@ nav.scrolled {
 .nav-links a:hover { color: var(--color-text-soft); }
 .nav-cta, .nav-links a.nav-cta {
   background: var(--color-amber); color: #fff; border: none;
-  padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500;
+  padding: 8px 18px; border-radius: 12px; font-size: 14px; font-weight: 500;
   cursor: pointer; text-decoration: none; transition: background 0.2s;
 }
 .nav-cta:hover, .nav-links a.nav-cta:hover { background: var(--color-amber-hover); color: #fff; }
