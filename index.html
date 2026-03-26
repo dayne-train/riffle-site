@@ -499,9 +499,9 @@
   if (window.matchMedia('(hover: none)').matches) {
     const scrollHoverObserver = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        e.target.classList.toggle('card-active', e.isIntersecting);
+        e.target.classList.toggle('card-active', e.intersectionRatio >= 0.65);
       });
-    }, { threshold: 0.65, rootMargin: '-10% 0px -10% 0px' });
+    }, { threshold: [0.3, 0.65], rootMargin: '-10% 0px -10% 0px' });
     document.querySelectorAll('.feature-card').forEach(el => scrollHoverObserver.observe(el));
   }
 
