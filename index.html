@@ -184,13 +184,13 @@
 </nav>
 
 <section class="hero">
-  <div class="hero-badge">
+  <div class="hero-badge hero-anim">
     <div class="hero-badge-dot"></div>
     Coming Soon
   </div>
-  <h1>Track every <em>riffle,</em><br>run, and pool.</h1>
-  <p class="hero-sub">Log every catch, record every route, and build a logbook that tells you what's working and where.</p>
-  <div class="hero-actions">
+  <h1 class="hero-anim">Track every <em>riffle,</em><br>run, and pool.</h1>
+  <p class="hero-sub hero-anim">Log every catch, record every route, and build a logbook that tells you what's working and where.</p>
+  <div class="hero-actions hero-anim">
     <a href="#beta" class="btn-primary">
       Join Beta
     </a>
@@ -198,11 +198,11 @@
   </div>
 
   <div class="app-mockup">
-    <div class="mockup-header">
+    <div class="mockup-header mockup-seq">
       <div class="mockup-title">Today's trip</div>
       <div class="mockup-badge">Active</div>
     </div>
-    <div class="trip-stat-row">
+    <div class="trip-stat-row mockup-seq">
       <div class="trip-stat">
         <div class="trip-stat-label">Time</div>
         <div class="trip-stat-val">3<span class="trip-stat-unit">h 22m</span></div>
@@ -213,10 +213,10 @@
       </div>
       <div class="trip-stat">
         <div class="trip-stat-label">Catches</div>
-        <div class="trip-stat-val">4</div>
+        <div class="trip-stat-val" id="catches-val">0</div>
       </div>
     </div>
-    <div class="map-placeholder">
+    <div class="map-placeholder mockup-seq">
       <svg width="100%" height="100%" viewBox="0 0 340 140" style="position:absolute;top:0;left:0;">
         <defs>
           <radialGradient id="mg" cx="50%" cy="60%" r="60%">
@@ -225,16 +225,16 @@
           </radialGradient>
         </defs>
         <rect width="340" height="140" fill="url(#mg)"/>
-        <path d="M30,100 Q80,70 120,80 Q160,90 190,60 Q220,30 270,45 Q300,55 320,40" stroke="#1E8C7A" stroke-width="2" fill="none" stroke-opacity="0.7"/>
+        <path class="route-path" d="M30,100 Q80,70 120,80 Q160,90 190,60 Q220,30 270,45 Q300,55 320,40" stroke="#1E8C7A" stroke-width="2" fill="none" stroke-opacity="0.7"/>
         <circle cx="120" cy="80" r="5" fill="#F0A030" opacity="0.9"/>
         <circle cx="190" cy="60" r="5" fill="#F0A030" opacity="0.9"/>
-        <circle cx="240" cy="38" r="5" fill="#F0A030" opacity="0.9"/>
+        <circle cx="270" cy="45" r="5" fill="#F0A030" opacity="0.9"/>
         <circle cx="295" cy="50" r="5" fill="#F0A030" opacity="0.9"/>
         <circle cx="320" cy="40" r="7" fill="#1E8C7A"/>
         <circle cx="320" cy="40" r="12" fill="#1E8C7A" opacity="0.2"/>
       </svg>
     </div>
-    <div class="catch-row">
+    <div class="catch-row catch-anim">
       <div class="catch-icon">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <ellipse cx="9" cy="9" rx="7" ry="4" stroke="#1E8C7A" stroke-width="1.2" fill="none"/>
@@ -248,7 +248,7 @@
       </div>
       <div class="catch-size">18"</div>
     </div>
-    <div class="catch-row">
+    <div class="catch-row catch-anim">
       <div class="catch-icon">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
           <ellipse cx="9" cy="9" rx="7" ry="4" stroke="#1E8C7A" stroke-width="1.2" fill="none"/>
@@ -410,12 +410,102 @@
 </footer>
 
 <script>
+  // Nav scroll state
   const nav = document.querySelector('nav');
-  const hero = document.querySelector('.hero');
-  const onScroll = () => {
-    nav.classList.toggle('scrolled', window.scrollY > 10);
-  };
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Animated mockup
+  window.addEventListener('load', () => {
+    // Hero text sequence — h1 first, then badge, sub, actions
+    [
+      document.querySelector('.hero h1'),
+      document.querySelector('.hero-badge'),
+      document.querySelector('.hero-sub'),
+      document.querySelector('.hero-actions'),
+    ].forEach((el, i) => {
+      if (el) setTimeout(() => el.classList.add('visible'), 60 + i * 130);
+    });
+
+    const STAGGER = 180;
+    const BASE = 100;
+
+    // 1. Header fades in
+    // 2. Stats row fades in + counter starts
+    // 3. Map fades in + route draws
+    // 4. Catch row 1 slides in
+    // 5. Catch row 2 slides in
+    document.querySelectorAll('.mockup-seq').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), BASE + i * STAGGER);
+    });
+
+    // Route draw — triggered when map appears (index 2)
+    const routePath = document.querySelector('.route-path');
+    if (routePath) {
+      const len = routePath.getTotalLength();
+      routePath.style.strokeDasharray = len;
+      routePath.style.strokeDashoffset = len;
+      setTimeout(() => {
+        routePath.style.transition = 'stroke-dashoffset 1.6s ease';
+        routePath.style.strokeDashoffset = 0;
+      }, BASE + 2 * STAGGER + 80);
+    }
+
+    // Catches counter — starts when stats row appears (index 1)
+    const catchesVal = document.getElementById('catches-val');
+    if (catchesVal) {
+      let c = 0;
+      setTimeout(() => {
+        const interval = setInterval(() => {
+          c++;
+          catchesVal.textContent = c;
+          if (c >= 4) clearInterval(interval);
+        }, 190);
+      }, BASE + 1 * STAGGER);
+    }
+
+    // Catch rows — after map (indices 3 and 4 in sequence)
+    document.querySelectorAll('.catch-anim').forEach((row, i) => {
+      setTimeout(() => row.classList.add('visible'), BASE + (3 + i) * STAGGER);
+    });
+  });
+
+  // Scroll reveals for feature cards + how-it-works steps
+  const revealEls = [
+    ...document.querySelectorAll('.feature-card'),
+    ...document.querySelectorAll('.steps > div'),
+    ...document.querySelectorAll('.quote-card')
+  ];
+  revealEls.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+  });
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Section headings — stagger label → heading → sub within each section
+  document.querySelectorAll('.section-label, .section-heading, .section-sub').forEach(el => {
+    const delay = el.classList.contains('section-label') ? 0
+      : el.classList.contains('section-heading') ? 0.07
+      : 0.14;
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${delay}s`;
+    revealObserver.observe(el);
+  });
+
+  // CTA section elements
+  document.querySelectorAll('.cta-section .section-label, .cta-section h2, .cta-section > p, .cta-section > div:last-of-type').forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${i * 0.1}s`;
+    revealObserver.observe(el);
+  });
 </script>
 </body>
 </html>

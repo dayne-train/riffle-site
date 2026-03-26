@@ -90,6 +90,91 @@ footer {
   }
 }
 
+/* Hero load animation */
+.hero-anim {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.hero-anim.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Feature card hovers */
+.feature-card {
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: var(--color-teal);
+  box-shadow: 0 0 10px rgba(30,140,122,0.7);
+  transition: left 0.35s ease, right 0.35s ease;
+  pointer-events: none;
+}
+.feature-card:hover::before {
+  left: 0;
+  right: 0;
+}
+.feature-card:hover {
+  transform: translateY(-3px);
+  background: #0e2820;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+.feature-icon {
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.feature-card:hover .feature-icon {
+  background: rgba(30,140,122,0.32);
+  box-shadow: 0 0 18px rgba(30,140,122,0.3);
+  transform: scale(1.12);
+}
+.feature-title {
+  transition: color 0.25s ease;
+}
+.feature-card:hover .feature-title {
+  color: #fff;
+}
+
+/* Scroll reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mockup sequential animation */
+.mockup-seq {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.mockup-seq.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mockup catch row animation */
+.catch-anim {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.catch-anim.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 @media (max-width: 860px) {
   footer {
     display: flex; flex-direction: column;
