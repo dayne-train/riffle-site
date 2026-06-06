@@ -1,16 +1,16 @@
-# Riffle — Marketing Site
+# Riffle Marketing Site
 
-Landing page for [Riffle](https://riffle.run), a GPS-powered fishing trip tracker for iOS. The app automatically logs trips, routes, and catches — no manual entry required.
+Landing page for [Riffle](https://riffle.run), a GPS-powered fishing trip tracker for iOS. The app automatically logs trips, routes, and catches. No manual entry required.
 
 ## What's here
 
 Static marketing site hosted on GitHub Pages. No framework, no build step.
 
-- `index.html` — Main landing page (hero, features, how it works, beta signup)
-- `privacy.html` — Privacy policy
-- `terms.html` — Terms of use
-- `global.css` — Shared styles (design tokens, nav, footer)
-- `CNAME` — Custom domain config (`riffle.run`)
+- `index.html`: main landing page (hero, features, how it works, beta signup)
+- `privacy.html`: privacy policy
+- `terms.html`: terms of use
+- `global.css`: shared styles (design tokens, nav, footer)
+- `CNAME`: custom domain config (`riffle.run`)
 
 ## Running locally
 
@@ -24,7 +24,7 @@ Then visit `http://localhost:8000`.
 
 ## Deploying
 
-Push to `main` — GitHub Pages serves from the repo root automatically.
+Push to `main`. GitHub Pages serves from the repo root automatically.
 
 ## Tech
 
