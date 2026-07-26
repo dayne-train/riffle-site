@@ -52,8 +52,10 @@ nav.scrolled {
   backdrop-filter: blur(8px);
   border-bottom-color: var(--color-border-nav);
 }
-.nav-logo { font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--color-text-soft); text-decoration: none; }
+.nav-logo { display: flex; align-items: center; gap: 9px; font-size: 20px; font-weight: 500; letter-spacing: -0.02em; color: var(--color-text-soft); text-decoration: none; }
 .nav-logo span { color: var(--color-teal); }
+.nav-logo .logomark { height: 26px; width: auto; display: block; }
+.nav-logo .wordmark { height: 21px; width: auto; display: block; }
 .nav-links { display: flex; gap: var(--space-md); align-items: center; }
 .nav-links a { font-size: 14px; color: rgba(240,237,232,0.65); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--color-text-soft); }
@@ -75,7 +77,8 @@ footer {
   align-items: center; gap: var(--space-sm);
 }
 .footer-copy { justify-self: end; }
-.footer-logo { font-size: 16px; font-weight: 500; color: rgba(212,240,226,0.6); }
+.footer-logo { font-size: 16px; font-weight: 500; color: rgba(212,240,226,0.6); display: flex; align-items: center; }
+.footer-logo img { height: 30px; width: auto; display: block; opacity: 0.65; }
 .footer-links { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 .footer-links a { font-size: 13px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: rgba(255,255,255,0.65); }

@@ -86,7 +86,7 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo"><img src="Riffle.svg" alt="Riffle" height="24"></a>
+  <a href="index.html" class="nav-logo" aria-label="Riffle home"><img src="logomark.svg" alt="" class="logomark"><img src="Riffle.svg" alt="Riffle" class="wordmark"></a>
   <a href="index.html" class="nav-back">← Back to home</a>
 </nav>
 
@@ -106,8 +106,8 @@
   <p>We collect only what's necessary to provide the Riffle experience:</p>
   <ul>
     <li><strong>Account information.</strong> Your email address and, if you sign in with Apple or Google, the name and profile photo associated with that account.</li>
-    <li><strong>Location data.</strong> GPS coordinates captured when you log a catch and continuously while a trip is recording. Trip recording uses background location so your route keeps logging when your phone is locked or you're in another app. You can stop recording at any time from the Record tab. Your location is stored under your account and is never shared with other users or third parties.</li>
-    <li><strong>Catch and trip data.</strong> Species, size, weight, lure, notes, and any other details you choose to enter.</li>
+    <li><strong>Location data.</strong> GPS coordinates captured when you log a catch and continuously while a session is recording. Session recording uses background location so your route keeps logging when your phone is locked or you're in another app. You can stop recording at any time from the Record tab. Your location is stored under your account and is never shared with other users or third parties.</li>
+    <li><strong>Catch, session, and trip data.</strong> Species, size, weight, lure, notes, and any other details you choose to enter.</li>
     <li><strong>Photos.</strong> Images you take or select from your library when logging a catch. Photos are stored securely in your account.</li>
     <li><strong>Photo library access (optional).</strong> If you use the photo import feature, Riffle scans your library on your device using Apple's Vision framework to find photos that look like fish. The scan runs entirely on your phone. No photo data leaves your device during the scan; only photos you choose to import and save to a catch are uploaded.</li>
     <li><strong>Device and usage data.</strong> Anonymized crash reports and basic performance data sent to Firebase Crashlytics so we can fix bugs. This does not include your catch, location, or photo data.</li>
@@ -126,7 +126,7 @@
   <p>Your data is used solely to:</p>
   <ul>
     <li>Provide and sync your personal Riffle log across your devices.</li>
-    <li>Display your trips, catches, and routes within the app.</li>
+    <li>Display your sessions, trips, catches, and routes within the app.</li>
     <li>Improve app stability and performance using anonymized crash reports.</li>
     <li>Respond to support requests you initiate.</li>
   </ul>
@@ -137,7 +137,7 @@
     <li><strong>Firebase (Google).</strong> Several Firebase services power the core of Riffle. Your data is stored on Firebase's infrastructure. See <a href="https://firebase.google.com/support/privacy" target="_blank">Firebase's privacy policy</a>.
       <ul>
         <li><strong>Firebase Authentication</strong> manages your account and sign-in.</li>
-        <li><strong>Cloud Firestore</strong> stores your catches, trips, spots, gear, and profile.</li>
+        <li><strong>Cloud Firestore</strong> stores your catches, sessions, trips, spots, gear, and profile.</li>
         <li><strong>Firebase Storage</strong> stores your catch photos.</li>
         <li><strong>Cloud Functions</strong> handles email verification, password reset, and email change flows.</li>
         <li><strong>Crashlytics</strong> collects anonymized crash reports and basic diagnostics so we can fix bugs. It does not include your catch data, location, or photos.</li>
@@ -146,8 +146,8 @@
     </li>
     <li><strong>Google Sign-In.</strong> Optional sign-in method. If you use it, Google shares your name, email, and profile photo with Riffle. See <a href="https://policies.google.com/privacy" target="_blank">Google's privacy policy</a>.</li>
     <li><strong>Sign in with Apple.</strong> Optional sign-in method. Apple shares your name and email (or a private relay email address, if you choose to hide your real one).</li>
-    <li><strong>Mapbox.</strong> Powers all maps in the app, including the live trip map, your saved routes, and detail views. Your device sends GPS coordinates to Mapbox so the right map tiles can be fetched, and the Mapbox SDK collects anonymized telemetry (general location, device type) by default to improve their maps. See <a href="https://www.mapbox.com/legal/privacy" target="_blank">Mapbox's privacy policy</a>.</li>
-    <li><strong>Apple WeatherKit.</strong> Used to fetch weather conditions for your location during a trip. Only your GPS coordinates are sent to WeatherKit, and no personal data is transmitted.</li>
+    <li><strong>Mapbox.</strong> Powers all maps in the app, including the live session map, your saved routes, and detail views. Your device sends GPS coordinates to Mapbox so the right map tiles can be fetched, and the Mapbox SDK collects anonymized telemetry (general location, device type) by default to improve their maps. See <a href="https://www.mapbox.com/legal/privacy" target="_blank">Mapbox's privacy policy</a>.</li>
+    <li><strong>Apple WeatherKit.</strong> Used to fetch weather conditions for your location during a session. Only your GPS coordinates are sent to WeatherKit, and no personal data is transmitted.</li>
     <li><strong>Apple MapKit.</strong> Used only when you tap "Open in Maps" from a saved spot, to hand off directions to Apple Maps.</li>
     <li><strong>Resend.</strong> Delivers transactional emails (verification, password reset, email change). Your email address is passed to Resend so the message can be sent. See <a href="https://resend.com/legal/privacy-policy" target="_blank">Resend's privacy policy</a>.</li>
     <li><strong>RevenueCat.</strong> If and when you upgrade to Riffle Pro, RevenueCat manages your subscription status. See <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat's privacy policy</a>.</li>
@@ -161,7 +161,7 @@
   <h2>Your rights</h2>
   <p>You can:</p>
   <ul>
-    <li><strong>Access your data.</strong> All your catches and trips are visible within the app.</li>
+    <li><strong>Access your data.</strong> All your catches, sessions, and trips are visible within the app.</li>
     <li><strong>Export your data.</strong> Use the export feature in Settings to download your catches as a CSV file.</li>
     <li><strong>Delete your account.</strong> Use the "Delete Account" option in Settings to permanently delete your account and all associated data. This cannot be undone.</li>
     <li><strong>Contact us.</strong> Email <a href="mailto:hello@riffle.run">hello@riffle.run</a> with any privacy questions or requests.</li>
@@ -178,7 +178,7 @@
 </div>
 
 <footer>
-  <div class="footer-logo">Riffle</div>
+  <div class="footer-logo"><img src="logomark.svg" alt="Riffle"></div>
   <div class="footer-links">
     <a href="index.html">Home</a>
     <a href="privacy.html">Privacy Policy</a>

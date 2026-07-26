@@ -14,25 +14,26 @@
   </script>
 
   <title>Riffle. Track every riffle, run, and pool.</title>
-  <meta name="description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fish-dex and Hatchdex. Free to start on iOS.">
+  <meta name="description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fishdex and Hatchdex. Now in beta on iOS.">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="068vlE1xxCTi5v1dvmiBB5QkVADY7tIegrRzrv4MfHk" />
   <link rel="canonical" href="https://riffle.run/">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://riffle.run/">
   <meta property="og:title" content="Riffle. Track every riffle, run, and pool.">
-  <meta property="og:description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fish-dex and Hatchdex. Free to start on iOS.">
+  <meta property="og:description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fishdex and Hatchdex. Now in beta on iOS.">
   <meta property="og:image" content="https://riffle.run/og-image.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Riffle. Track every riffle, run, and pool.">
-  <meta name="twitter:description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fish-dex and Hatchdex. Free to start on iOS.">
+  <meta name="twitter:description" content="The fishing logbook that fills itself. GPS routes, two-tap catches, weather context, and a living Fishdex and Hatchdex. Now in beta on iOS.">
   <meta name="twitter:image" content="https://riffle.run/og-image.png">
 
   <!-- Structured data -->
@@ -41,7 +42,7 @@
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "Riffle",
-    "description": "Fishing logbook for iOS. GPS trip routes, two-tap catch logging, weather context per catch, Fish-dex across 203 species, and a Hatchdex insect calendar.",
+    "description": "Fishing logbook for iOS. GPS session routes, two-tap catch logging, weather context per catch, session replay, a Fishdex across 203 species, and a Hatchdex insect calendar.",
     "operatingSystem": "iOS",
     "applicationCategory": "SportsApplication",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free to start. Pro tier available." },
@@ -70,7 +71,9 @@
       background: rgba(0,0,0,0.2); border: 0.5px solid rgba(0,0,0,0.15);
       color: var(--color-text); font-size: 12px; padding: 5px 14px; border-radius: 20px;
       margin-bottom: var(--space-md); letter-spacing: 0.04em;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s;
     }
+    .hero-badge:hover { background: rgba(0,0,0,0.32); border-color: rgba(255,255,255,0.2); }
     .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-amber); }
 
     .hero h1 {
@@ -186,7 +189,7 @@
       border-radius: 16px; overflow: hidden;
       border: 0.5px solid rgba(255,255,255,0.06);
     }
-    .features-panel[data-panel="before"] .features-grid { grid-template-columns: repeat(3, 1fr); }
+    .features-panel[data-panel="before"] .features-grid { grid-template-columns: repeat(2, 1fr); }
     .features-panel[data-panel="during"] .features-grid { grid-template-columns: repeat(2, 1fr); }
     .features-panel[data-panel="after"]  .features-grid { grid-template-columns: repeat(3, 1fr); }
 
@@ -228,7 +231,7 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo"><img src="Riffle.svg" alt="Riffle" height="24"></a>
+  <a href="index.html" class="nav-logo" aria-label="Riffle home"><img src="logomark.svg" alt="" class="logomark"><img src="Riffle.svg" alt="Riffle" class="wordmark"></a>
   <div class="nav-links">
     <div class="nav-section-links">
       <a href="#features">Features</a>
@@ -239,10 +242,10 @@
 </nav>
 
 <section class="hero">
-  <div class="hero-badge hero-anim">
+  <a href="#beta" class="hero-badge hero-anim">
     <div class="hero-badge-dot"></div>
-    Coming Soon
-  </div>
+    Currently in beta, sign up below
+  </a>
   <h1 class="hero-anim">Track every <em>riffle,</em><br>run, and pool.</h1>
   <p class="hero-sub hero-anim">Log every catch, record every route, and build a logbook that tells you what's working and where.</p>
   <div class="hero-actions hero-anim">
@@ -254,7 +257,7 @@
 
   <div class="app-mockup mockup-block-anim">
     <div class="mockup-header mockup-seq">
-      <div class="mockup-title">Today's trip</div>
+      <div class="mockup-title">Today's session</div>
       <div class="mockup-badge">Active</div>
     </div>
     <div class="trip-stat-row mockup-seq">
@@ -324,16 +327,16 @@
   <div class="features-section">
     <div class="section-label">Built for the water</div>
     <h2 class="section-heading">A logbook that fills itself.</h2>
-    <p class="section-sub">Explore Riffle the way a trip unfolds. Tap a moment.</p>
+    <p class="section-sub">Explore Riffle the way a day on the water unfolds. Tap a moment.</p>
 
     <div class="feature-tabs" role="tablist">
-      <button class="feature-tab" data-tab="before" role="tab" aria-selected="false"><span class="feature-tab-num">01</span>Before the trip</button>
+      <button class="feature-tab" data-tab="before" role="tab" aria-selected="false"><span class="feature-tab-num">01</span>Before you go</button>
       <button class="feature-tab active" data-tab="during" role="tab" aria-selected="true"><span class="feature-tab-num">02</span>On the water</button>
-      <button class="feature-tab" data-tab="after" role="tab" aria-selected="false"><span class="feature-tab-num">03</span>After the trip</button>
+      <button class="feature-tab" data-tab="after" role="tab" aria-selected="false"><span class="feature-tab-num">03</span>After you're out</button>
     </div>
 
     <div class="features-panel" data-panel="before" role="tabpanel">
-      <p class="panel-intro">Plan the trip. Match the hatch. Pick the rig. Walk to the water already ahead.</p>
+      <p class="panel-intro">Plan the trip. Read the conditions. Match the hatch. Pick the rig. Walk to the water already ahead.</p>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
@@ -345,7 +348,7 @@
             </svg>
           </div>
           <div class="feature-title">Hatchdex and hatch calendar</div>
-          <div class="feature-body">See what's emerging right now where you fish. Mayflies, caddis, stones, midges, and more. Six insect orders with seasonal windows that update as you log them.</div>
+          <div class="feature-body">See what's emerging right now where you fish. Mayflies, caddis, stones, midges, and more. Six insect orders with seasonal windows, and every hatch tells you which fish key on it.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -356,7 +359,17 @@
             </svg>
           </div>
           <div class="feature-title">Plan trips and save spots</div>
-          <div class="feature-body">Pin productive water as you find it. Plan trips ahead, drop spots on the map, and return to them with the route already plotted.</div>
+          <div class="feature-body">Pin productive water as you find it. Plan a trip ahead, single day or a whole week, and it turns itself into a live trip when the date arrives. Your sessions attach as you fish them.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 13 C4 13 2.5 11.6 2.5 9.8 C2.5 8.2 3.7 6.9 5.3 6.7 C5.7 4.6 7.6 3 9.8 3 C12.1 3 14 4.7 14.3 6.9 C15.9 7 17.2 8.3 17.2 9.9 C17.2 11.6 15.8 13 14 13 Z" stroke="#1E8C7A" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+              <path d="M7 16 L7 17.5 M10 15.5 L10 17.5 M13 16 L13 17.5" stroke="#F0A030" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feature-title">Conditions read before you go</div>
+          <div class="feature-body">A multi-day forecast strip for every planned trip, plus a plain-language read on what the skies, wind, temperature trend, and moon are likely to do to the fishing. Hedged where the science is thin, confident where it isn't.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -385,7 +398,7 @@
             </svg>
           </div>
           <div class="feature-title">Background GPS tracking</div>
-          <div class="feature-body">Start a trip, lock your phone, and fish. Riffle records your exact route in the background all day. Every pool, every run, every wade, mapped without touching your phone.</div>
+          <div class="feature-body">Start a session, lock your phone, and fish. Riffle records your exact route in the background all day. Every pool, every run, every wade, mapped without touching your phone.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -407,7 +420,7 @@
             </svg>
           </div>
           <div class="feature-title">Live Activity and lock screen widget</div>
-          <div class="feature-body">During an active trip, your lock screen and Dynamic Island show your catch count, distance, and time on the water. Glance, don't unlock.</div>
+          <div class="feature-body">During an active session, your lock screen and Dynamic Island show your catch count, distance, and time on the water. Glance, don't unlock.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -425,7 +438,7 @@
     </div>
 
     <div class="features-panel" data-panel="after" role="tabpanel">
-      <p class="panel-intro">End the trip and the story writes itself. Route, catches, weather, and milestones, all stitched together.</p>
+      <p class="panel-intro">End the session and the story writes itself. Route, catches, weather, and milestones, all stitched together.</p>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">
@@ -436,8 +449,21 @@
               <circle cx="17" cy="6" r="1.6" fill="#F0A030"/>
             </svg>
           </div>
-          <div class="feature-title">Trip review with catches pinned</div>
-          <div class="feature-body">See your full route with every catch dropped where it happened. Photos, lures, and notes alongside the map. Re-walk the trip without leaving the truck.</div>
+          <div class="feature-title">Session review with catches pinned</div>
+          <div class="feature-body">See your full route with every catch dropped where it happened. Photos, lures, and notes alongside the map. Re-walk the day without leaving the truck.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 14 Q6 10 9 11 Q12 12 14 8 Q15 6 17 5" stroke="#1E8C7A" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+              <path d="M3 14 Q6 10 9 11" stroke="#1E8C7A" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+              <circle cx="9" cy="11" r="2.4" fill="#F0A030"/>
+              <path d="M4 17.5 L16 17.5" stroke="#1E8C7A" stroke-width="1" opacity="0.35" stroke-linecap="round"/>
+              <path d="M9 16.5 L9 18.5" stroke="#F0A030" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feature-title">Session replay</div>
+          <div class="feature-body">Scrub or play your route back and watch the day unfold on the map, catch by catch. Missed the start? Place the points you walked before you hit record and the session backfills itself.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -449,7 +475,7 @@
             </svg>
           </div>
           <div class="feature-title">Weather at every catch</div>
-          <div class="feature-body">Pressure, temperature, wind, cloud cover, and humidity charted across the whole trip with each catch marked. Finally see what was actually working.</div>
+          <div class="feature-body">Pressure, temperature, wind, cloud cover, and humidity charted across the whole session with each catch marked. Finally see what was actually working.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -460,7 +486,7 @@
               <circle cx="14" cy="8" r="1.5" fill="#F0A030"/>
             </svg>
           </div>
-          <div class="feature-title">Fish-dex across 203 species</div>
+          <div class="feature-title">Fishdex across 203 species</div>
           <div class="feature-body">Nine groups, 203 species. See what you've caught, what you haven't, and your personal best for each one. Your logbook becomes a living record of every species you've ever landed.</div>
         </div>
         <div class="feature-card">
@@ -469,8 +495,18 @@
               <path d="M10 2 L12.5 7.5 L18 8 L14 12 L15 17.5 L10 15 L5 17.5 L6 12 L2 8 L7.5 7.5 Z" stroke="#1E8C7A" stroke-width="1.3" fill="none" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="feature-title">Milestones, PBs, and stats</div>
-          <div class="feature-body">First of a species. Personal best. Biggest fish in a new state. Riffle calls them out automatically. Lifetime, monthly, and day-by-day stats fall out for free.</div>
+          <div class="feature-title">Milestones and personal bests</div>
+          <div class="feature-body">First of a species. Personal best. Biggest fish in a new state. Riffle calls them out automatically, the moment they happen.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 17 L3 12 M7.7 17 L7.7 8 M12.3 17 L12.3 10.5 M17 17 L17 5" stroke="#1E8C7A" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="17" cy="5" r="1.6" fill="#F0A030"/>
+            </svg>
+          </div>
+          <div class="feature-title">Season trends and stats</div>
+          <div class="feature-body">Watch this season stack up against the last one, month by month. Lifetime, monthly, and day-by-day numbers fall out of the logbook for free.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -481,7 +517,7 @@
             </svg>
           </div>
           <div class="feature-title">Logbook search</div>
-          <div class="feature-body">One search across catches, trips, planned trips, species, and insects. Find that brown trout from October without scrolling.</div>
+          <div class="feature-body">One search across catches, sessions, trips, species, and insects. Find that brown trout from October without scrolling.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
@@ -493,7 +529,18 @@
             </svg>
           </div>
           <div class="feature-title">Photo scan and import</div>
-          <div class="feature-body">Backfill trips you never logged. Scan your camera roll and Riffle pulls the dates, GPS, and photos to reconstruct old days on the water.</div>
+          <div class="feature-body">Backfill the days you never logged. Scan your camera roll and Riffle pulls the dates, GPS, and photos to reconstruct old sessions on the water.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="5" y="2.5" width="10" height="15" rx="2" stroke="#1E8C7A" stroke-width="1.5" fill="none"/>
+              <path d="M7.5 12.5 Q9 9.5 11 10.5 Q12.3 11.2 12.5 9" stroke="#1E8C7A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+              <circle cx="10" cy="6" r="1.4" fill="#F0A030"/>
+            </svg>
+          </div>
+          <div class="feature-title">Share cards worth posting</div>
+          <div class="feature-body">Four presets built from your real route, catches, and photos. Swap the hero shot, pick the stats, change the layout, then send it straight to Messages or Instagram Stories.</div>
         </div>
       </div>
     </div>
@@ -507,7 +554,7 @@
   <div class="steps">
     <div>
       <div class="step-num">01</div>
-      <div class="step-title">Start your trip</div>
+      <div class="step-title">Start your session</div>
       <div class="step-body">One tap and Riffle starts recording your GPS route in the background. Lock your screen and go fish. It runs all day without draining your battery.</div>
     </div>
     <div>
@@ -518,7 +565,7 @@
     <div>
       <div class="step-num">03</div>
       <div class="step-title">Review at the truck</div>
-      <div class="step-body">End the trip and see your full route, every catch pinned to where it happened, your stats, and your photos. All in one place.</div>
+      <div class="step-body">End the session and see your full route, every catch pinned to where it happened, your stats, and your photos. All in one place. Play it back if you want to relive it.</div>
     </div>
   </div>
 </section>
@@ -553,7 +600,7 @@
 <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
 <footer>
-  <div class="footer-logo">Riffle</div>
+  <div class="footer-logo"><img src="logomark.svg" alt="Riffle"></div>
   <div class="footer-links">
     <a href="privacy.html">Privacy Policy</a>
     <a href="terms.html">Terms of Use</a>
